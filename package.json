@@ -1,0 +1,22 @@
+{
+  "author": "Francisco Tavares de Lima Neto",
+  "description": "Callbag source that generates a range of numbers",
+  "dependencies": {},
+  "devDependencies": {
+    "tape": "~4.9.0"
+  },
+  "keywords": [
+    "callbag"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "callbag-range",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/franciscotln/callbag-range.git"
+  },
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "version": "1.0.0"
+}
