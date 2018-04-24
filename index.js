@@ -1,16 +1,25 @@
+const isNumber = n => n != null && !isNaN(n) && isFinite(n) && n.constructor === Number;
+
 const range = (from, to, step = 1) => {
   if (step === 0) throw 'Step cannot be zero';
-  if (isNaN(from) || isNaN(to)) throw 'Arguments must be numbers';
+  if (!isNumber(from) || !isNumber(to) || !isNumber(step)) throw 'Arguments must be numbers';
   let sent = from - step;
   let sink;
+  let end;
   const source = (t, d) => {
+    if (end) return;
     if (t === 0) {
       sink = d;
       sink(0, source);
     }
     if (t === 1) {
       sent += step;
-      (to > from && sent <= to) || (to < from && sent >= to) ? sink(1, sent) : sink(2);
+      if ((to > from && sent <= to) || (to < from && sent >= to)) {
+        sink(1, sent);
+      } else if (!end) {
+        sink(2);
+        end = true;
+      }
     }
   };
   return source;

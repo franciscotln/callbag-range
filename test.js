@@ -41,9 +41,28 @@ test('it creates a source that throws if the step is zero', t => {
 });
 
 test('it creates a source that throws if the inputs are not numbers', t => {
-  t.plan(1);
+  const throwsMsg = 'throws Arguments must be numbers';
+  t.plan(7);
   t.throws(() => {
-    range(0, 'a');
-  }, 'throws Arguments must be numbers');
+    range(0, '2');
+  }, throwsMsg, 'end boundary must be number');
+  t.throws(() => {
+    range('0', 2);
+  }, throwsMsg, 'start boundary must be number');
+  t.throws(() => {
+    range(0, 2, '1');
+  }, throwsMsg, 'step must be number');
+  t.throws(() => {
+    range(0, Infinity);
+  }, throwsMsg, 'only finite numbers');
+  t.throws(() => {
+    range(0, NaN);
+  }, throwsMsg, 'NaN is not considered as number');
+  t.throws(() => {
+    range(0, null);
+  }, throwsMsg, 'null is not accepted as number');
+  t.throws(() => {
+    range(0, undefined);
+  }, throwsMsg, 'undefined is not accepted as number');
   t.end();
 });
