@@ -3,7 +3,7 @@
   "description": "Callbag source that generates a range of numbers",
   "dependencies": {},
   "devDependencies": {
-    "tape": "~4.9.0"
+    "tape": "~4.9.1"
   },
   "keywords": [
     "callbag"
