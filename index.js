@@ -16,6 +16,7 @@ const range = (from, to, step = 1) => {
     let sent = from - step;
     let ended = false;
     let inLoop = false;
+    let got1 = false;
     const loop = () => {
       inLoop = true;
       while (got1 && !ended) {
