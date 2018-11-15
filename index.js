@@ -14,7 +14,7 @@ const checkArgs = (from, to, step) => {
   }
 };
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production';
 
 const range = (from, to, step = 1) => {
   if (!isProd) {
