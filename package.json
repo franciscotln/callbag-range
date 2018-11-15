@@ -5,20 +5,25 @@
     "callbag-from-iter": "^1.2.0"
   },
   "devDependencies": {
+    "rollup": "^0.67.1",
     "tape": "~4.9.1"
   },
   "keywords": [
     "callbag"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "index.cjs.js",
+  "module": "index.js",
   "name": "callbag-range",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/franciscotln/callbag-range.git"
   },
   "scripts": {
-    "test": "tape test.js"
+    "build": "rollup $npm_package_module -o $npm_package_main --f cjs --external callbag-from-iter",
+    "pretest": "npm run build",
+    "test": "tape test.js",
+    "prepare": "npm test"
   },
   "version": "2.0.1"
 }

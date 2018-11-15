@@ -1,4 +1,4 @@
-const fromIter = require('callbag-from-iter');
+import fromIter from 'callbag-from-iter';
 
 const isNumber = n => n != null && !isNaN(n) && isFinite(n) && n.constructor === Number;
 
@@ -36,4 +36,4 @@ const range = (from, to, step = 1) => {
   });
 };
 
-module.exports = range;
+export default range;
