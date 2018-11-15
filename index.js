@@ -14,8 +14,13 @@ const checkArgs = (from, to, step) => {
   }
 };
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const range = (from, to, step = 1) => {
-  checkArgs(from, to, step);
+  if (!isProd) {
+    checkArgs(from, to, step);
+  }
+
   let value = from - step;
 
   return fromIter({
