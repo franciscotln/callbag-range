@@ -1,5 +1,5 @@
 const test = require('tape');
-const range = require('./index');
+const range = require('.');
 
 test('it creates a source that emits a range of numbers then completes', t => {
   t.plan(14);

@@ -1,3 +1,5 @@
+import fromIter from 'callbag-from-iter';
+
 const isNumber = n => n != null && !isNaN(n) && isFinite(n) && n.constructor === Number;
 
 const checkArgs = (from, to, step) => {
@@ -7,42 +9,31 @@ const checkArgs = (from, to, step) => {
   if (!isNumber(from) || !isNumber(to) || !isNumber(step)) {
     throw new Error('Arguments must be numbers');
   }
+  if (from > to && step > 0) {
+    throw new Error('Descending range must have negative step. Got +' + step);
+  }
 };
+
+const isProd = process.env.NODE_ENV === 'production'
 
 const range = (from, to, step = 1) => {
-  checkArgs(from, to, step);
-  return (start, sink) => {
-    if (start !== 0) return;
-    let sent = from - step;
-    let ended = false;
-    let inLoop = false;
-    let got1 = false;
-    const loop = () => {
-      inLoop = true;
-      while (got1 && !ended) {
-        got1 = false;
-        sent += step;
-        if ((to > from && sent <= to) || (to < from && sent >= to)) {
-          sink(1, sent);
-        } else {
-          ended = true;
-          sink(2);
-        }
-      }
-      inLoop = false;
-    };
+  if (!isProd) {
+    checkArgs(from, to, step);
+  }
 
-    sink(0, t => {
-      if (ended) return;
-      if (t === 1) {
-        got1 = true;
-        if (!inLoop) loop();
+  let value = from - step;
+
+  return fromIter({
+    next() {
+      value += step;
+
+      if (to > from ? value > to : value < to) {
+        return { value: undefined, done: true };
       }
-      if (t === 2) {
-        ended = true;
-      }
-    });
-  };
+
+      return { value, done: false };
+    },
+  });
 };
 
-module.exports = range;
+export default range;
